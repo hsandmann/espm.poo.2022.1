@@ -18,6 +18,7 @@ public class Banco {
 
     public void addCliente(Cliente c) {
         this.clientes.add(c);
+        this.contas.add(c.getConta());
     }
 
     public String getNome() {
@@ -26,6 +27,14 @@ public class Banco {
 
     public List<Cliente> getClientes() {
         return clientes;
+    }
+
+    public List<Conta> getContas() {
+        return contas;
+    }
+
+    public void setContas(List<Conta> contas) {
+        this.contas = contas;
     }
     
 }
