@@ -65,7 +65,8 @@ public class Main {
 
         Cliente c = new Cliente();
         c.setNome(nome);
-        c.setCpf(cpf);
+        // TODO: quebrou o código
+        // c.setCpf(cpf);
 
         banco.addCliente(c);
     }
