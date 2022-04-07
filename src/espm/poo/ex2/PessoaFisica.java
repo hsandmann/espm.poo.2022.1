@@ -1,6 +1,6 @@
 package espm.poo.ex2;
 
-public class PessoaFisica {
+public class PessoaFisica extends Cliente {
 
     private String cpf;
 
