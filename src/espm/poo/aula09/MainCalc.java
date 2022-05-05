@@ -1,5 +1,8 @@
 package espm.poo.aula09;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainCalc {
@@ -13,9 +16,18 @@ public class MainCalc {
                 double a = scanner.nextDouble();
                 System.out.print("b: ");
                 double b = scanner.nextDouble();
-                System.out.print("operacao [+-/*^!]: ");
                 scanner.nextLine();
-                String op = scanner.nextLine();
+                String op = null;
+                while (op == null) {
+                    try {
+                        op = input("operacao [+-/*^!]: ", "*", "/", "!", "+", "-");
+                    } catch(ESPMException e) {
+                        System.err.println("Entrada inválida: " + e.getMessage());
+                        throw new RuntimeException(e.getMessage(), e);
+                        // continua propagando a excecao
+                        // throw e;
+                    }
+                }
                 if (op.equals("!")) {
                     break;
                 }
@@ -30,8 +42,30 @@ public class MainCalc {
             } catch (ArithmeticException e) {
                 e.printStackTrace();
                 System.err.println("Erro na operacao: " + e.getMessage());
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.err.println("Erro na entrada: " + e.getMessage());
+                scanner.nextLine();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Erro: " + e.getMessage());
+            } finally {
+                System.out.println("Operacao ok ou excecao tratada!");
             }
         }
+    }
+
+    private static String input(String msg, String... possibles) throws ESPMException {
+        final Scanner scanner = new Scanner(System.in);
+        System.out.print(msg);
+        String line = scanner.nextLine().trim();
+        for (String item : Arrays.asList(possibles)) {
+            if (item.equals(line)) {
+                return item;
+            }
+        }
+        // Levanta uma excecao
+        throw new ESPMException(line);
     }
 
     private static double sub(double a, double b) {
